@@ -30,6 +30,11 @@ __decorate([
     __metadata("design:type", String)
 ], Todo.prototype, "content", void 0);
 __decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Todo.prototype, "status", void 0);
+__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => User_1.default),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER

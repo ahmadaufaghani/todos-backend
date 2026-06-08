@@ -3,9 +3,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTodo = exports.updateTodo = exports.createTodo = exports.getTodos = void 0;
+exports.deleteTodo = exports.updateTodo = exports.createTodo = exports.getTodos = exports.getStats = void 0;
 const Todo_1 = __importDefault(require("../models/Todo"));
 const User_1 = __importDefault(require("../models/User"));
+const getStats = async (req, res) => {
+    try {
+        const total = await Todo_1.default.count();
+        const finish = await Todo_1.default.count({ where: { status: "done" } });
+        const usersTotal = await User_1.default.count();
+        res.status(200).json({
+            status: "success",
+            total: total,
+            finish: finish,
+            usersTotal: usersTotal
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            status: "error",
+            message: err.message
+        });
+    }
+};
+exports.getStats = getStats;
 const getTodos = async (req, res) => {
     try {
         const userId = req.user?.id;
@@ -22,7 +42,7 @@ const getTodos = async (req, res) => {
     catch (err) {
         res.status(500).json({
             status: "error",
-            message: err
+            message: err.message
         });
     }
 };
@@ -40,7 +60,7 @@ const createTodo = async (req, res) => {
     catch (err) {
         res.status(500).json({
             status: "error",
-            message: err
+            message: err.message
         });
     }
 };
@@ -48,8 +68,14 @@ exports.createTodo = createTodo;
 const updateTodo = async (req, res) => {
     try {
         const todoId = req.params.todoId;
+        const body = req.body;
         const todo = await Todo_1.default.findOne({ where: { id: todoId } });
-        todo.content = req.body.content;
+        if (body.content) {
+            todo.content = body.content;
+        }
+        if (body.status) {
+            todo.status = body.status;
+        }
         todo?.save();
         res.status(200).json({
             status: "success",
@@ -59,7 +85,7 @@ const updateTodo = async (req, res) => {
     catch (err) {
         res.status(500).json({
             status: "error",
-            message: err
+            message: err.message
         });
     }
 };
@@ -73,7 +99,7 @@ const deleteTodo = async (req, res) => {
     catch (err) {
         res.status(500).json({
             status: "error",
-            message: err
+            message: err.message
         });
     }
 };

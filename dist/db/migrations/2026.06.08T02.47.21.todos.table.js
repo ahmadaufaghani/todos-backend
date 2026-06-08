@@ -14,6 +14,10 @@ const up = async ({ context: sequelize }) => {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false
         },
+        status: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false
+        },
         user_id: {
             type: sequelize_1.DataTypes.INTEGER,
             references: {

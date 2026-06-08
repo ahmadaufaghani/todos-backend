@@ -35,6 +35,10 @@ export default class Todo extends Model<InferAttributes<Todo>, InferCreationAttr
     @Column
     declare content: string
 
+    @AllowNull(false)
+    @Column
+    declare status: string
+
     @ForeignKey(()=>User)
     @Column({
         type: DataType.INTEGER

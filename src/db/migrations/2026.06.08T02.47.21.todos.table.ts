@@ -13,6 +13,10 @@ export const up: Migration = async ({context: sequelize}) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        status : {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         user_id : {
             type: DataTypes.INTEGER,
             references: {
