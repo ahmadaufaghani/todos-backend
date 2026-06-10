@@ -9,10 +9,11 @@ const config = {
         pool: {
             min: 0, 
             max: 5,
-            idle: 10000  
+            idle: 30000 
         },
         dialectOptions : {
-            encrypt : true
+            encrypt : true,
+            requestTimeout: 60000
         }
     },
     env : process.env.NODE_ENV || "development",
