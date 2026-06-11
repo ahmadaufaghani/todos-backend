@@ -6,12 +6,6 @@ const config = {
         password: process.env.DB_PASSWORD || "DbGhani2026*",
         database: process.env.DATABASE || "todos",
         dialect: "mssql",
-        pool: {
-            min: 0, 
-            max: 5,
-            idle: 30000,
-            acquire: 60000
-        },
         dialectOptions : {
             encrypt : true,
         }
